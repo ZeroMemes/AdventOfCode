@@ -32,13 +32,11 @@ func main() {
 			from--
 			to--
 
-			for j := 0; j < cnt; j++ {
-				rem := pt1[from][:1]
-				pt1[from] = pt1[from][1:]
-				pt1[to] = rem + pt1[to]
-			}
+			rem := reverse(pt1[from][0:cnt])
+			pt1[from] = pt1[from][cnt:]
+			pt1[to] = rem + pt1[to]
 
-			rem := pt2[from][0:cnt]
+			rem = pt2[from][0:cnt]
 			pt2[from] = pt2[from][cnt:]
 			pt2[to] = rem + pt2[to]
 		}
@@ -50,4 +48,12 @@ func main() {
 	for _, s := range pt2 {
 		fmt.Print(s[:1])
 	}
+}
+
+func reverse(s string) string {
+	runes := []rune(s)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
 }
